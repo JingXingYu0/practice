@@ -13,7 +13,7 @@ int main()
             return 0;
         case 1:
             temperature2 = TemperatureEnter(0) + 273.15; // 摄氏度转开尔文
-            printf("公式为:开尔文(°K)=摄氏度(°C)*5/9+32\n转换的开尔文数为:%.2f°F\n", temperature2);
+            printf("公式为:开尔文(°K)=摄氏度(°C)*5/9+32\n转换的开尔文数为:%.2f°K\n", temperature2);
             break;
         case 2:
             temperature2 = TemperatureEnter(0) / (5.0 / 9.0) + 32.0; // 摄氏度转华氏度
