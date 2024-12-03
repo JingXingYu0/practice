@@ -1,31 +1,72 @@
-// V=0.30
+// V=0.40
 #include <stdio.h>
-float TemperatureEnter(float temperature1);
+float munging_1(int type_1, float temperature_1);
+float munging_2(int type_2, float temperature_2);
 int main()
 {
-    float temperature2 = 0;
+    float temperature1 = 0;
     int choice = 0;
-    while (printf("(结束代码=0;开尔文=1;华氏度=2;)\n请选择要从摄氏度转换的温度单位:"), scanf("%d", &choice))
+    while (printf("(结束代码=0;开尔文=1;摄氏度=2;华氏度=3;)\n请选择要从被转换的温度单位:"), scanf("%d", &choice),0<choice&&choice <=3)
     {
-        switch (choice)
-        {
-        case 0:
-            return 0;
-        case 1:
-            temperature2 = TemperatureEnter(0) + 273.15; // 摄氏度转开尔文
-            printf("公式为:开尔文(°K)=摄氏度(°C)*5/9+32\n转换的开尔文数为:%.2f°K\n", temperature2);
-            break;
-        case 2:
-            temperature2 = TemperatureEnter(0) / (5.0 / 9.0) + 32.0; // 摄氏度转华氏度
-            printf("公式为:华氏度(°F)=摄氏度(°C)*5/9+32\n转换的华氏度数为:%.2f°F\n", temperature2);
-            break;
-        }
-    }
+        printf("请输入要转换的摄氏度:");
+        scanf("%f", &temperature1);
+        temperature1 = munging_1(choice, temperature1);
+        printf("（开尔文=1;摄氏度=2;华氏度=3;)\n请选择要从需要转换的温度单位:");
+        scanf("%d", &choice);
+        munging_2(choice, temperature1);
+    };
     return 0;
 }
-float TemperatureEnter(float temperature1)
+
+float munging_1(int type_1, float temperature_1)
 {
-    printf("请输入要转换的摄氏度:");
-    scanf("%f", &temperature1);
-    return temperature1;
+    float i;
+    switch (type_1)
+    {
+    case 1: // 开尔文转开尔文
+        i = temperature_1;
+        printf("开尔文转开尔文\n");
+        break;
+
+    case 2: // 摄氏度转开尔文
+        i = temperature_1 + 273.15;
+        printf("摄氏度转开尔文\n");
+        break;
+    case 3: // 华氏度转开尔文
+        i = (temperature_1 + 459.67) * 5 / 9;
+        printf("华氏度转开尔文\n");
+        break;
+    default:
+        printf("输入类型错误！\n");
+        return -1;
+        break;
+    }
+    return i;
+}
+float munging_2(int type_2, float temperature_2)
+{
+    float i;
+    switch (type_2)
+    {
+    case 1: // 开尔文转开尔文
+        i = temperature_2;
+        printf("开尔文转开尔文\n");
+        printf("转换的开尔文数为:%.2f°K\n", i);
+        break;
+    case 2: // 摄氏度转开尔文
+        i = temperature_2 - 273.15;
+        printf("开尔文转摄氏度\n");
+        printf("转换的摄氏度数为:%.2f°C\n", i);
+        break;
+    case 3: // 华氏度转开尔文
+        i = temperature_2 * 9 / 5 - 459.67;
+        printf("开尔文转华氏度\n");
+        printf("转换的华氏度数为:%.2f°F\n", i);
+        break;
+    default:
+        printf("输入类型错误！\n");
+        return -1;
+        break;
+    }
+    return i;
 }
