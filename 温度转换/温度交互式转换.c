@@ -3,7 +3,7 @@
 #include <stdlib.h>
 
 // F_Temperature_Conversion_Output函数用于处理温度的输出
-float F_Temperature_Conversion_Output(char content[], float f_Temperature_Input, float f_Temperature_Output, int i_Step_Count)
+float F_Temperature_Conversion_Output(char content[], float f_Temperature_Input, float f_Temperature_Output, int i_Step_Count,char c_Translating_Unit_Symbols)
 {
    float i;
    if (i_Step_Count == 0)
@@ -13,7 +13,7 @@ float F_Temperature_Conversion_Output(char content[], float f_Temperature_Input,
    }
    else
    {
-      printf("转换的%s数为:%.2f°K\n", content, f_Temperature_Output);
+      printf("转换的%s数为:%.2f %c\n", content, f_Temperature_Output,c_Translating_Unit_Symbols);
       return f_Temperature_Output;
    }
 }
@@ -22,32 +22,35 @@ float F_Temperature_Conversion_Output(char content[], float f_Temperature_Input,
 float F_Temperature_Conversion_Judgment(char c_Input_Type, char c_Output_Type, float temperature, int i_Step_Count)
 {
    char c_Conversion_Type = c_Input_Type;
-   if (i_Step_Count == 0)
-   {
-      F_Temperature_Conversion_Judgment(c_Output_Type, "\0", temperature, 1);
-   }
+
    float i;
    switch (c_Conversion_Type)
    {
    case '1': // 开尔文转开尔文
    case 'K': // 开尔文转开尔文
    case 'k':
-      i = F_Temperature_Conversion_Output("开尔文", temperature, temperature, i_Step_Count);
-      return i;
+      i = F_Temperature_Conversion_Output("开尔文", temperature, temperature, i_Step_Count,'K');
+      break;
    case '2': // 开尔文转摄氏度
    case 'C': // 开尔文转摄氏度
    case 'c':
-      i = F_Temperature_Conversion_Output("摄氏度", temperature + 273.15, temperature - 273.15, i_Step_Count);
-      return i;
+      i = F_Temperature_Conversion_Output("摄氏度", temperature + 273.15, temperature - 273.15, i_Step_Count,'C');
+      break;
    case '3': // 开尔文转华氏度
    case 'F': // 开尔文转华氏度
    case 'f':
-      i = F_Temperature_Conversion_Output("华氏度", (temperature + 459.67) * 5 / 9, temperature * 9 / 5 - 459.67, i_Step_Count);
-      return i;
+      i = F_Temperature_Conversion_Output("华氏度", (temperature + 459.67) * 5 / 9, temperature * 9 / 5 - 459.67, i_Step_Count,'F');
+      break;
    default:
       printf("数据错误\n");
       return -1;
    }
+      if (i_Step_Count == 0)
+   {
+      i= F_Temperature_Conversion_Judgment(c_Output_Type, '\0', i, 1);
+      
+   }
+   return i;
 }
 
 // C_User_Choose函数作为用户输入字符串的简单集成
