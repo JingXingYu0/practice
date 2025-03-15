@@ -1,4 +1,4 @@
-// V=1.3
+// V=1.3.-1
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -39,6 +39,31 @@ float F_Temperature_Conversion_Judgment(char c_Input_Type, char c_Output_Type, f
    case 'f':
       f_Temperature_Output = F_Temperature_Conversion_Output("华氏度", (f_Temperature + 459.67) * 5 / 9, f_Temperature * 9 / 5 - 459.67, i_Step_Count, 'F');
       break;
+   case '4':
+   case 'Ra':
+   case 'ra':
+      f_Temperature_Output = F_Temperature_Conversion_Output("兰氏度",f_Temperature *5/9 , f_Temperature *9/5 , i_Step_Count ,'Ra');
+      break;
+   case '5':
+   case 'D':
+   case 'd':
+      f_Temperature_Output = F_Temperature_Conversion_Output("德利尔温标",373.15-f_Temperature*2/3,373.15-f_Temperature*3/2,i_Step_Count,'D');
+      break;
+   case '6':
+   case 'N':
+   case 'n':
+      f_Temperature_Output = F_Temperature_Conversion_Output("牛顿温标",f_Temperature*100/33+273.15,(f_Temperature-273.15)*33/100,i_Step_Count,'N');
+      break;
+   case '7':
+   case 'Re':
+   case 're':
+      f_Temperature_Output = F_Temperature_Conversion_Output("列氏温标",f_Temperature*5/4+273.15,(f_Temperature-273.15)*4/5,i_Step_Count,'Re');
+      break;
+   case '8':
+   case 'Rø':
+   case 'rø':
+      f_Temperature_Output = F_Temperature_Conversion_Output("罗氏温标",(f_Temperature-7.5)*40/21+273.15,(f_Temperature+273.15)*21/40+7.5,i_Step_Count,'Rø');
+      break;
    default:
       printf("数据错误\n");
       return -1;
@@ -56,7 +81,9 @@ char C_User_Choose(char content[])
    char parameter;
    printf("%s\n", content);
    scanf("%s", &parameter);
-   getchar() != '\n';
+   //printf("Enter a string: ");
+   //fgets(parameter, sizeof(parameter), stdin);
+   //printf("You entered: %s", parameter);
    return parameter;
 }
 
@@ -65,12 +92,12 @@ int I_Interactive_Interface(float temperature)
 {
    char f_Unit_Conversion_Input = '0';
    char f_Unit_Conversion_Output = '0';
-   f_Unit_Conversion_Input = C_User_Choose("(0.结束代码;1.开尔文;2.摄氏度;3.华氏度;)\n请输入要从被转换的温度单位:");
+   f_Unit_Conversion_Input = C_User_Choose("(0.结束代码;开尔文=1;摄氏度=2;华氏度=3;兰氏度=4;德利尔温标=5;牛顿温标=6;列氏温标=7;罗氏温标=8;)\n请输入要从被转换的温度单位:");
    if (f_Unit_Conversion_Input == '0')
    {
       return 1;
    }
-   f_Unit_Conversion_Output = C_User_Choose("（开尔文=1;摄氏度=2;华氏度=3;)\n请输入要从需要转换的温度单位:");
+   f_Unit_Conversion_Output = C_User_Choose("（开尔文=1;摄氏度=2;华氏度=3;兰氏度=4;德利尔温标=5;牛顿温标=6;列氏温标=7;罗氏温标=8)\n请输入要从需要转换的温度单位:");
    printf("请输入要转换的温度数值:");
    scanf("%f", &temperature);
    getchar() != '\n';
